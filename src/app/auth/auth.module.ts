@@ -30,7 +30,7 @@ import { NgxRegisterComponent } from '../register/register.component';
   ],
   declarations: [
     NgxLoginComponent,
-    NgxRegisterComponent
+    NgxRegisterComponent,
   ],
 })
 export class NgxAuthModule {
