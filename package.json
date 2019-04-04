@@ -2,13 +2,6 @@
   "name": "ngx-admin",
   "version": "3.2.1",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/akveo/ngx-admin.git"
-  },
-  "bugs": {
-    "url": "https://github.com/akveo/ngx-admin/issues"
-  },
   "browserslist": [
     "> 1%",
     "last 2 versions",
