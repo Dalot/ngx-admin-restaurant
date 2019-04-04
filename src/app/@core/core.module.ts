@@ -1,6 +1,6 @@
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NbAuthModule, NbDummyAuthStrategy } from '@nebular/auth';
+import { NbAuthModule, NbDummyAuthStrategy, NbPasswordAuthStrategy, NbAuthJWTToken } from '@nebular/auth';
 import { NbSecurityModule, NbRoleProvider } from '@nebular/security';
 import { of as observableOf } from 'rxjs';
 
@@ -99,23 +99,55 @@ export class NbSimpleRoleProvider extends NbRoleProvider {
   }
 }
 
+
+const formSetting: any = {
+  redirectDelay: 0,
+  showMessages: {
+    success: true,
+  },
+};
+
 export const NB_CORE_PROVIDERS = [
   ...MockDataModule.forRoot().providers,
   ...DATA_SERVICES,
   ...NbAuthModule.forRoot({
-
     strategies: [
-      NbDummyAuthStrategy.setup({
+      NbPasswordAuthStrategy.setup({
         name: 'email',
-        delay: 3000,
+        token: {
+          class: NbAuthJWTToken,
+          key: 'token', // this parameter tells where to look for the token
+        },
+        baseEndpoint: 'http://lex.dalot.xyz:8083',
+            login: {
+              endpoint: '/api/login',
+              method: 'post',
+            },
+            register: {
+              endpoint: '/api/register',
+              method: 'post',
+            },
+            logout: {
+              endpoint: '/api/logout',
+              method: 'post',
+            },
+            requestPass: {
+              endpoint: '/api/forgot',
+              method: 'post',
+            },
+            resetPass: {
+              endpoint: '/api/reset',
+              method: 'post',
+            },
       }),
     ],
     forms: {
-      login: {
-        socialLinks: socialLinks,
-      },
-      register: {
-        socialLinks: socialLinks,
+      login: formSetting,
+      register: formSetting,
+      requestPassword: formSetting,
+      resetPassword: formSetting,
+      logout: {
+        redirectDelay: 0,
       },
     },
   }).providers,

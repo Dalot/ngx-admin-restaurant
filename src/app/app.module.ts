@@ -15,6 +15,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { ThemeModule } from './@theme/theme.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { NbPasswordAuthStrategy, NbAuthModule } from '@nebular/auth';
+import { AuthGuard } from './guards/auth.guard';
+
+
+
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -22,6 +28,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
+    
 
     NgbModule.forRoot(),
     ThemeModule.forRoot(),
@@ -29,6 +36,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   ],
   bootstrap: [AppComponent],
   providers: [
+    AuthGuard,
     { provide: APP_BASE_HREF, useValue: '/' },
   ],
 })
