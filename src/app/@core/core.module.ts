@@ -130,7 +130,6 @@ export const NB_CORE_PROVIDERS = [
             logout: {
               endpoint: '/api/logout',
               method: 'get',
-              redirect: { success: '/', failure: '/' }
             },
             requestPass: {
               endpoint: '/api/forgot',
