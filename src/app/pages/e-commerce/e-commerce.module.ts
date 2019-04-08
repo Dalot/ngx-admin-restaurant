@@ -11,6 +11,7 @@ import { NewsPostPlaceholderComponent } from './infinite-list/news-post-placehol
 
 
 
+
 @NgModule({
   imports: [
     ThemeModule,
@@ -24,7 +25,7 @@ import { NewsPostPlaceholderComponent } from './infinite-list/news-post-placehol
     NewsPostPlaceholderComponent,
   ],
   providers: [
-    NewsService
+    NewsService,
   ],
 })
 export class ECommerceModule { }

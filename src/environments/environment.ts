@@ -10,4 +10,5 @@
 
 export const environment = {
   production: false,
+  apiUrl: 'http://lex.dalot.xyz:8083/'
 };

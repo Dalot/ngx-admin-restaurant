@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { map, catchError, first } from 'rxjs/operators';
 import { Food, FoodAdapter } from '../models/food.model';
 import { DrinkAdapter, Drink } from '../models/drink.model';
+import { MenuAdapter, Menu } from '../models/menu.model';
+import { environment as env } from '../../environments/environment' ;
 
 export class Pagination {
   current_page: number;
@@ -24,26 +26,32 @@ export class Pagination {
 })
 export class ProductService {
    
-    private baseUrl = 'http://lex.dalot.xyz:8083';
 
     private currentFoodPageSubject: BehaviorSubject<Pagination>;
     public currentFoodPage: Observable<Pagination>;
     private currentDrinkPageSubject: BehaviorSubject<Pagination>;
     public currentDrinkPage: Observable<Pagination>;
+    private currentMenuPageSubject: BehaviorSubject<Pagination>;
+    public currentMenuPage: Observable<Pagination>;
 
     public paginationFoodData: any;
     public paginationDrinkData: any;
+    public paginationMenuData: any;
     public response: any;
     constructor(
       private http: HttpClient, 
       private foodAdapter: FoodAdapter, 
-      private drinkAdapter: DrinkAdapter
+      private drinkAdapter: DrinkAdapter,
+      private menuAdapter: MenuAdapter
       ) {
         this.currentFoodPageSubject = new BehaviorSubject<Pagination>(new Pagination);
         this.currentFoodPage = this.currentFoodPageSubject.asObservable();
 
         this.currentDrinkPageSubject = new BehaviorSubject<Pagination>(new Pagination);
         this.currentDrinkPage = this.currentDrinkPageSubject.asObservable();
+
+        this.currentMenuPageSubject = new BehaviorSubject<Pagination>(new Pagination);
+        this.currentMenuPage = this.currentMenuPageSubject.asObservable();
        }
 
     public get currentFoodPageValue(): any {
@@ -52,10 +60,14 @@ export class ProductService {
 
     public get currentDrinkPageValue(): any {
       return this.currentDrinkPageSubject.value;
-  }
+    }
+
+    public get currentMenuPageValue(): any {
+      return this.currentMenuPageSubject.value;
+    }
 
     getFoods(url): Observable<Food[]> {
-      (url == '' ? url = 'http://lex.dalot.xyz:8083/api/products/foods' : url);
+      (url == '' ? url = `${env.apiUrl}api/products/foods` : url);
       console.log(url);
         this.response = this.http.get(url);
    
@@ -82,6 +94,21 @@ export class ProductService {
           // Adapt each item in the raw data array
         return this.response.pipe(
           map((data: any[]) => data['products'][0]['drinks']['data'].map(item => this.foodAdapter.adapt(item))),
+        );
+    }
+    getMenus(url): Observable<Menu[]> {
+      (url == '' ? url = 'http://lex.dalot.xyz:8083/api/products/menus' : url);
+      console.log(url);
+        this.response = this.http.get(url);
+   
+        this.response.pipe(first()).subscribe(data => {
+          //this.paginationMenuData = data;
+          this.currentMenuPageSubject.next(data);
+        });
+       
+          // Adapt each item in the raw data array
+        return this.response.pipe(
+          map((data: any[]) => data['products'][0]['menus']['data'].map(item => this.menuAdapter.adapt(item))),
         );
     }
 }

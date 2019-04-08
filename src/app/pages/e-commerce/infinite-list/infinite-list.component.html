@@ -33,3 +33,21 @@
           </nb-list>
         </nb-card>
       </div>
+
+      <div class="col-12 col-sm-6 col-md-8">
+        <nb-card class="own-scroll">
+          <nb-card-header>Menus</nb-card-header>
+          <nb-list
+            nbInfiniteList
+            [threshold]="500"
+            (bottomThreshold)="loadNextMenus(menuCard)">
+            <nb-list-item *ngFor="let newsPost of menuCard.news">
+              <ngx-news-post [post]="newsPost"></ngx-news-post>
+            </nb-list-item>
+            <nb-list-item *ngFor="let _ of menuCard.placeholders">
+              <ngx-news-post-placeholder></ngx-news-post-placeholder>
+            </nb-list-item>
+          </nb-list>
+        </nb-card>
+      </div>
+</div>

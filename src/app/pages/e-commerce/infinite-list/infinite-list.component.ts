@@ -11,13 +11,16 @@ import { Observable } from 'rxjs';
 export class InfiniteListComponent {
   private currentFoodPageData: any;
   private currentDrinkPageData: any;
+  private currentMenuPageData: any;
   pageSize = 10;
   foodCard: any;
   drinkCard: any;
+  menuCard: any;
   constructor(private newsService: NewsService, private productService: ProductService) {
     //this.currentFoodPageData = this.productService.currentFoodPageValue;
     this.productService.currentFoodPage.subscribe(x => this.currentFoodPageData = x);
     this.productService.currentDrinkPage.subscribe(x => this.currentDrinkPageData = x);
+    this.productService.currentMenuPage.subscribe(x => this.currentMenuPageData = x);
 
     this.foodCard = {
       news: [],
@@ -28,6 +31,14 @@ export class InfiniteListComponent {
       total_pages: 2,
     };
     this.drinkCard = {
+      news: [],
+      placeholders: [],
+      loading: false,
+      pageToLoadNext: '',
+      currentPageNumber: 1,
+      total_pages: 2,
+    };
+    this.menuCard = {
       news: [],
       placeholders: [],
       loading: false,
@@ -72,7 +83,22 @@ export class InfiniteListComponent {
         cardData.totalPages = this.currentDrinkPageData['products'][0]['drinks'].last_page;
       });
   }
-  
+  loadNextMenus(cardData) {
+    if (cardData.loading || cardData.total_pages === cardData.currentPageNumber) { return; }
+
+    cardData.loading = true;
+    cardData.placeholders = new Array(this.pageSize);
+    
+    this.newsService.loadMenus(cardData.pageToLoadNext, cardData.currentPageNumber, this.pageSize, cardData.totalPages)
+      .subscribe(nextNews => {
+        cardData.placeholders = [];
+        cardData.news.push(...nextNews);
+        cardData.loading = false;
+        cardData.currentPageNumber = this.currentMenuPageData['products'][0]['menus'].current_page;
+        cardData.pageToLoadNext = this.currentMenuPageData['products'][0]['menus'].next_page_url;
+        cardData.totalPages = this.currentMenuPageData['products'][0]['menus'].last_page;
+      });
+  }
   
   
 }
