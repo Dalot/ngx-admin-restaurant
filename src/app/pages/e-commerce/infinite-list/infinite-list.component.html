@@ -1,0 +1,35 @@
+<div class="infinite-cards row">
+  <div class="col-md-12 col-lg-6 col-xxxl-6">
+    <nb-card class="own-scroll">
+      <nb-card-header>Foods</nb-card-header>
+      <nb-list
+        nbInfiniteList
+        [threshold]="500"
+        (bottomThreshold)="loadNextFoods(foodCard)">
+        <nb-list-item *ngFor="let newsPost of foodCard.news">
+          <ngx-news-post [post]="newsPost"></ngx-news-post>
+        </nb-list-item>
+        <nb-list-item *ngFor="let _ of foodCard.placeholders">
+          <ngx-news-post-placeholder></ngx-news-post-placeholder>
+        </nb-list-item>
+      </nb-list>
+    </nb-card>
+  </div>
+
+
+      <div class="col-md-12 col-lg-6 col-xxxl-6">
+        <nb-card class="own-scroll">
+          <nb-card-header>Drinks</nb-card-header>
+          <nb-list
+            nbInfiniteList
+            [threshold]="500"
+            (bottomThreshold)="loadNextDrinks(drinkCard)">
+            <nb-list-item *ngFor="let newsPost of drinkCard.news">
+              <ngx-news-post [post]="newsPost"></ngx-news-post>
+            </nb-list-item>
+            <nb-list-item *ngFor="let _ of drinkCard.placeholders">
+              <ngx-news-post-placeholder></ngx-news-post-placeholder>
+            </nb-list-item>
+          </nb-list>
+        </nb-card>
+      </div>

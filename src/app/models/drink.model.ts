@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Adapter } from '../adapters/adapter';
 
-export class Food {
+export class Drink {
     constructor(
       public name: string,
       public description: string,
-      public price_food: number,
+      public price_drink: number,
       public url_image: string,
     ) { }
   }
@@ -13,13 +13,13 @@ export class Food {
 @Injectable({
     providedIn: 'root'
 })
-export class FoodAdapter implements Adapter<Food> {
+export class DrinkAdapter implements Adapter<Drink> {
 
-  adapt(item: any): Food {
-    return new Food(
+  adapt(item: any): Drink {
+    return new Drink(
       item.name,
       item.description,
-      item.price_food,
+      item.price_drink,
       item.url_image,
     );
   }
