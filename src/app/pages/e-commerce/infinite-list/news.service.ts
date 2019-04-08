@@ -6,7 +6,7 @@ import { Food } from '../../../models/food.model';
 import { ProductService } from '../../../services/product.service';
 import { Drink } from '../../../models/drink.model';
 
-const TOTAL_PAGES = 7;
+
 
 
 @Injectable()
@@ -14,21 +14,19 @@ export class NewsService {
     currentFoodPage: any;
 
     constructor(private http: HttpClient, private productService: ProductService) {
-        //this.currentFoodPage = this.productService.currentFoodPageValue;
+        this.currentFoodPage = this.productService.currentFoodPageValue;
     }
 
-  loadFoods(page: number, pageSize: number): Observable<Food[]> {
-    const startIndex = ((page - 1) % TOTAL_PAGES) * pageSize;
-    
-    return this.productService.getFoods().pipe(
+  loadFoods(nextPage:string, page: number, pageSize: number, total_pages:number): Observable<Food[]> {
+    const startIndex = ((page - 1) % total_pages) * pageSize;
+    return this.productService.getFoods(nextPage).pipe(
         map(foods => foods.splice(startIndex, pageSize)),
             delay(1500),
         );
   }
-  loadDrinks(page: number, pageSize: number): Observable<Drink[]> {
-    const startIndex = ((page - 1) % TOTAL_PAGES) * pageSize;
-    
-    return this.productService.getDrinks().pipe(
+  loadDrinks(nextPage:string, page: number, pageSize: number, total_pages:number): Observable<Drink[]> {
+    const startIndex = ((page - 1) % total_pages) * pageSize;
+    return this.productService.getDrinks(nextPage).pipe(
         map(drinks => drinks.splice(startIndex, pageSize)),
             delay(1500),
         );
