@@ -4,8 +4,12 @@
   .infinite-cards {
     nb-card {
       &.own-scroll {
-        height: 50vh;
+        height: 70vh;
       }
+    }
+    .menu-card {
+      margin-left: auto;
+      margin-right: auto;
     }
   }
 }

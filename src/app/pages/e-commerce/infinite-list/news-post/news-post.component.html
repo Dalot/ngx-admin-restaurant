@@ -5,5 +5,8 @@
   <p>{{post.description}}</p>
   <p *ngIf="post.price_food; else drinkPrice">${{post.price_food}} AUD</p>
   <ng-template #drinkPrice><p>${{post.price_drink}} AUD</p></ng-template>
-  <button nbButton hero status="success">Add to Cart</button>
+  
+    <button class="btn btn-primary" [nbPopover]="tabsComponent">Add to Cart</button>
+ 
+  
 </article>

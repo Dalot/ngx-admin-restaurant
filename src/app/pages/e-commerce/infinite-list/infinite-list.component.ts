@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NewsService } from './news.service';
-import { ProductService, Pagination } from '../../../services/product.service';
-import { Observable } from 'rxjs';
+import { ProductService } from '../../../services/product.service';
 
 @Component({
   selector: 'ngx-infinite-list',
@@ -48,6 +47,7 @@ export class InfiniteListComponent {
     };
   }
 
+ 
   
   
 
