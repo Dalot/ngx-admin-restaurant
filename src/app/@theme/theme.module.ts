@@ -59,7 +59,7 @@ import {
   ThreeColumnsLayoutComponent,
   TwoColumnsLayoutComponent,
 } from './layouts';
-import { DEFAULT_THEME } from './styles/theme.default';
+import { CORPORATE_THEME } from './styles/theme.corporate';
 
 
 const BASE_MODULES = [CommonModule, FormsModule, ReactiveFormsModule];
@@ -127,19 +127,16 @@ const PIPES = [
 const NB_THEME_PROVIDERS = [
   ...NbThemeModule.forRoot(
     {
-      name: 'default',
+      name: 'corporate',
     },
-    [ DEFAULT_THEME],
+    [ CORPORATE_THEME],
   ).providers,
   ...NbSidebarModule.forRoot().providers,
   ...NbMenuModule.forRoot().providers,
   ...NbDatepickerModule.forRoot().providers,
   ...NbDialogModule.forRoot().providers,
   ...NbWindowModule.forRoot().providers,
-  ...NbToastrModule.forRoot().providers,
-  ...NbChatModule.forRoot({
-    messageGoogleMapKey: 'AIzaSyA_wNuCzia92MAmdLRzmqitRGvCF7wCZPY',
-  }).providers,
+  ...NbToastrModule.forRoot().providers
 ];
 
 @NgModule({

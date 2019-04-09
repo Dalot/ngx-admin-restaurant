@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 
 import { NbMenuService, NbSidebarService } from '@nebular/theme';
 import { UserService } from '../../../services/user.service';
+import { LayoutService } from '../../../@core/utils';
 
 @Component({
   selector: 'ngx-header',
@@ -18,7 +19,8 @@ export class HeaderComponent implements OnInit {
 
   constructor(private sidebarService: NbSidebarService,
               private menuService: NbMenuService,
-              private userService: UserService) 
+              private userService: UserService,
+              private layoutService: LayoutService) 
   {
     /*this.authService.onTokenChange()
       .subscribe((token: NbAuthJWTToken) => {
@@ -32,9 +34,15 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.userFromApi.name);
+
   }
 
+  toggleSidebar(): boolean {
+    this.sidebarService.toggle(true, 'menu-sidebar');
+    this.layoutService.changeLayoutSize();
+
+    return false;
+  }
 
   goToHome() {
     this.menuService.navigateHome();

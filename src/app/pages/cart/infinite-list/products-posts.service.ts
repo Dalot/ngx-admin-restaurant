@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { delay, map, first } from 'rxjs/operators';
+import { delay, map } from 'rxjs/operators';
 import { Food } from '../../../models/food.model';
 import { ProductService } from '../../../services/product.service';
 import { Drink } from '../../../models/drink.model';
@@ -11,7 +11,7 @@ import { Menu } from '../../../models/menu.model';
 
 
 @Injectable()
-export class NewsService {
+export class ProductsPostsService {
     currentFoodPage: any;
 
     constructor(private http: HttpClient, private productService: ProductService) {

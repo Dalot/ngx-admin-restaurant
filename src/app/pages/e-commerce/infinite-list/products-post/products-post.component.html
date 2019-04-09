@@ -1,0 +1,12 @@
+<article>
+   <img style="max-width:100px;float:right "[src]="post.url_image" alt="">
+  <h2>{{post.name}}</h2>
+  thumbnail 
+  <p>{{post.description}}</p>
+  <p *ngIf="post.price_food; else drinkPrice">${{post.price_food}} AUD</p>
+  <ng-template #drinkPrice><p>${{post.price_drink}} AUD</p></ng-template>
+  
+    <button class="btn btn-primary" [nbPopover]="tabsComponent">Add to Cart</button>
+ 
+  
+</article>

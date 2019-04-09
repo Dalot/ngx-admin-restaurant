@@ -6,12 +6,12 @@ import { NgxPopoverTabsComponent } from '../../popovers/tabs/tabs.component';
 
 
 @Component({
-  selector: 'ngx-news-post',
-  templateUrl: 'news-post.component.html',
-  styleUrls: ['./news-post.component.scss']
+  selector: 'ngx-products-post',
+  templateUrl: 'products-post.component.html',
+  styleUrls: ['./products-post.component.scss']
 
 })
-export class NewsPostComponent {
+export class ProductsPostComponent {
   tabsComponent = NgxPopoverTabsComponent;
   formComponent = NgxPopoverFormComponent;
   @Input() post: Food;
